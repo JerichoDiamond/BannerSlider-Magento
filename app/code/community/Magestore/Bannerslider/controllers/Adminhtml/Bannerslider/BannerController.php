@@ -128,6 +128,11 @@ class Magestore_Bannerslider_Adminhtml_Bannerslider_BannerController extends Mag
             }
                               
             try {
+             $tz = Mage::getStoreConfig('general/locale/timezone');
+             if(!preg_match('/^america/i',$tz)) {
+                 $data['start_time']=str_replace('/','.',$data['start_time']);
+                 $data['end_time']=str_replace('/','.',$data['end_time']);
+             }
                  $data['start_time']=date('Y-m-d H:i:s',Mage::getModel('core/date')->gmtTimestamp(strtotime($data['start_time'])));
                  $data['end_time']=date('Y-m-d H:i:s',Mage::getModel('core/date')->gmtTimestamp(strtotime($data['end_time'])));
             } catch (Exception $e) {}
